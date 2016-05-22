@@ -9,11 +9,14 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 endif(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
 
 # Include path for additional CMake library finding scripts
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake/")
 
 # We want the binaries to be easily accessible
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+
+# Append _d for debug builds
+set(CMAKE_DEBUG_POSTFIX "_d")
 
 # Add the libraries
 # OGRE
@@ -25,13 +28,17 @@ list(APPEND LIBS ${OGRE_LIBRARIES})
 add_definitions(-DOGRE_PLUGIN_DIR_REL="${OGRE_PLUGIN_DIR_REL}")
 add_definitions(-DOGRE_PLUGIN_DIR_DBG="${OGRE_PLUGIN_DIR_DBG}")
 
-#OGRE-Overlay
-if (OGRE_VERSION_MAJOR GREATER 1 OR OGRE_VERSION_MINOR GREATER 8)
-	include_directories(${OGRE_Overlay_INCLUDE_DIRS})
-	list(APPEND LIBS ${OGRE_Overlay_LIBRARIES})
+add_subdirectory(Plugins/ParticleUniverse)
+
+# Samples and tools
+set(PU_BUILD_SAMPLES ON CACHE BOOL "Build plugin samples")
+set(PU_BUILD_TOOLS ON CACHE BOOL "Build tools")
+
+if(PU_BUILD_SAMPLES)
+  add_subdirectory(Samples/ParticleUniverseDemo)
 endif()
 
-add_subdirectory(Plugins/ParticleUniverse)
-add_subdirectory(Samples/ParticleUniverseDemo)
-add_subdirectory(Tools/AtlasImageTool)
+if(PU_BUILD_TOOLS)
+  add_subdirectory(Tools/AtlasImageTool)
+endif()
 

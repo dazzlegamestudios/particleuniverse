@@ -132,7 +132,7 @@ namespace ParticleUniverse
 			ParticleSystemWriter mParticleSystemWriter;
 			String mPath;
 			std::ofstream mScriptFile;
-			StringUtil::StrStreamType mScript;
+			StringStream mScript;
 			String mScriptString;
 			short mTab[5];
 			short mIndentation;

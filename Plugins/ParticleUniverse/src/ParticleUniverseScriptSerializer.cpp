@@ -33,11 +33,11 @@ namespace ParticleUniverse
 {
 	//-----------------------------------------------------------------------
 	ParticleScriptSerializer::ParticleScriptSerializer(void) :
-		mPath(StringUtil::BLANK),
+		mPath(BLANK_STRING),
 		mIndentation(0),
-		mKeyword(StringUtil::BLANK),
+		mKeyword(BLANK_STRING),
 		mStreamToFile(true),
-		mScriptString(StringUtil::BLANK)
+		mScriptString(BLANK_STRING)
 	{
 		mTab[0] = 0;
 		mTab[1] = 48;
@@ -96,7 +96,7 @@ namespace ParticleUniverse
 		short indentation3,
 		short indentation4)
 	{
-		String base = StringUtil::BLANK;
+		String base = BLANK_STRING;
 		base.reserve(256);
 		_appendTabbedString(0, base, s0, indentation0);
 		_appendTabbedString(1, base, s1, indentation1);
@@ -117,7 +117,7 @@ namespace ParticleUniverse
 		short indentation2,
 		short indentation3)
 	{
-		String base = StringUtil::BLANK;
+		String base = BLANK_STRING;
 		_appendTabbedString(0, base, s0, indentation0);
 		_appendTabbedString(1, base, s1, indentation1);
 		_appendTabbedString(2, base, s2, indentation2);
@@ -134,7 +134,7 @@ namespace ParticleUniverse
 		short indentation1,
 		short indentation2)
 	{
-		String base = StringUtil::BLANK;
+		String base = BLANK_STRING;
 		_appendTabbedString(0, base, s0, indentation0);
 		_appendTabbedString(1, base, s1, indentation1);
 		_appendTabbedString(2, base, s2, indentation2);
@@ -148,7 +148,7 @@ namespace ParticleUniverse
 		short indentation0,
 		short indentation1)
 	{
-		String base = StringUtil::BLANK;
+		String base = BLANK_STRING;
 		_appendTabbedString(0, base, s0, indentation0);
 		_appendTabbedString(1, base, s1, indentation1);
 		base += "\n";
@@ -159,7 +159,7 @@ namespace ParticleUniverse
 		const String& s0,
 		short indentation0)
 	{
-		String base = StringUtil::BLANK;
+		String base = BLANK_STRING;
 		_appendTabbedString(0, base, s0, indentation0);
 		base += "\n";
 		_stream(base);
@@ -189,7 +189,7 @@ namespace ParticleUniverse
 	//-----------------------------------------------------------------------
 	String ParticleScriptSerializer::toString(vector<Real> vector, bool applySqrt)
 	{
-        StringUtil::StrStreamType stream;
+    StringStream stream;
 		if (!vector.empty())
 		{
 			for (size_t i = 0; i < vector.size(); ++i)

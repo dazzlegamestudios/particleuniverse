@@ -31,6 +31,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "ParticleUniverseController.h"
 #include "OgreSceneManager.h"
 #include "OgreRoot.h"
+#include "OgreSceneNode.h"
+#include "OgreMesh.h"
 
 namespace ParticleUniverse
 {
@@ -99,7 +101,7 @@ namespace ParticleUniverse
 		mPauseTime(0.0f),
 		mPauseTimeSet(false),
 		mPauseTimeElapsed(0.0f),
-		mTemplateName(StringUtil::BLANK),
+		mTemplateName(BLANK_STRING),
 		mStopFadeSet(false),
 		mLatestOrientation(Quaternion::IDENTITY),
 		mRotationOffset(Quaternion::IDENTITY),
@@ -150,7 +152,7 @@ namespace ParticleUniverse
 		mPauseTime(0.0f),
 		mPauseTimeSet(false),
 		mPauseTimeElapsed(0.0f),
-		mTemplateName(StringUtil::BLANK),
+		mTemplateName(BLANK_STRING),
 		mStopFadeSet(false),
 		mLatestOrientation(Quaternion::IDENTITY),
 		mRotationOffset(Quaternion::IDENTITY),
@@ -564,7 +566,7 @@ namespace ParticleUniverse
 	//-----------------------------------------------------------------------
 	ParticleTechnique* ParticleSystem::getTechnique (const String& techniqueName) const
 	{
-		if (techniqueName == StringUtil::BLANK)
+		if (techniqueName == BLANK_STRING)
 			return 0;
 
 		ParticleTechniqueConstIterator it;
@@ -611,11 +613,13 @@ namespace ParticleUniverse
 	void ParticleSystem::destroyAllTechniques (void)
 	{
 		ParticleTechniqueIterator it;
-		for (it = mTechniques.begin(); it != mTechniques.end(); ++it)
+		while (mTechniques.size() > 0)
 		{
-			ParticleSystemManager::getSingletonPtr()->destroyTechnique(*it);
+			it = mTechniques.begin();
+			ParticleTechnique* tech = *it;
+			ParticleSystemManager::getSingletonPtr()->destroyTechnique(tech);
+			mTechniques.erase(it);
 		}
-		mTechniques.clear();
 	}
 	//-----------------------------------------------------------------------
 	const Real ParticleSystem::getFastForwardTime(void) const

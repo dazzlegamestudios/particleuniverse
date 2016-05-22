@@ -93,9 +93,9 @@ namespace ParticleUniverse
 		public:
 			Context(void) : attributeToken(0)
 			{
-				mPreviousProcessedSection.sectionName = StringUtil::BLANK;
+				mPreviousProcessedSection.sectionName = BLANK_STRING;
 				mPreviousProcessedSection.element = 0;
-				mPreviousProcessedSection.elementName = StringUtil::BLANK;
+				mPreviousProcessedSection.elementName = BLANK_STRING;
 			};
 			virtual ~Context(void) {};
 			
@@ -108,7 +108,7 @@ namespace ParticleUniverse
 			void beginSection(
 				const String& sectionName, 
 				IElement* element = 0,
-				const String& elementName = StringUtil::BLANK)
+				const String& elementName = BLANK_STRING)
 			{
 				// Add a new section to the stack
 				Section* section = PU_NEW_T(Section, MEMCATEGORY_SCRIPTING)();
@@ -147,7 +147,7 @@ namespace ParticleUniverse
 				if (section)
 					return section->sectionName;
 				else
-					return StringUtil::BLANK;
+					return BLANK_STRING;
 			}
 
 			/** 
@@ -165,7 +165,7 @@ namespace ParticleUniverse
 				if (parent)
 					return parent->sectionName;
 				else
-					return StringUtil::BLANK;
+					return BLANK_STRING;
 			}
 
 			/** 
@@ -205,7 +205,7 @@ namespace ParticleUniverse
 				if (section)
 					return section->elementName;
 				else
-					return StringUtil::BLANK;
+					return BLANK_STRING;
 			}
 
 			/** 
@@ -223,7 +223,7 @@ namespace ParticleUniverse
 				if (parent)
 					return parent->elementName;
 				else
-					return StringUtil::BLANK;
+					return BLANK_STRING;
 			}
 
 			/** 
@@ -247,7 +247,7 @@ namespace ParticleUniverse
 			/** 
 			*/
 			void validateCurrentSectionName(const String& sectionName, 
-				const String& calledFromFunction = StringUtil::BLANK)
+				const String& calledFromFunction = BLANK_STRING)
 			{
 				Section* section = _getCurrentSection();
 				if (!section || section->sectionName != sectionName)
